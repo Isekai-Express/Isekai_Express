@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 
+/// <summary>
+/// 자식 노드 중 하나라도 Failure 이면 Failure 반환, Running이나 Success라면 둘 중 하나 반환 (Running 우선도가 높음)
+/// </summary>
 public sealed class SequenceNode : INode
 {
     List<INode> _childs;

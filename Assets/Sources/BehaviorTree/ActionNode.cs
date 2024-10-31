@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Leaf Node에 해당, 동작 정의하는 Node
+/// </summary>
 public sealed class ActionNode : INode
 {
     Func<INode.ENodeState> _onUpdate = null;
