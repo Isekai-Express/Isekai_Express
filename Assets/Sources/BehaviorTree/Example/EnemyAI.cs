@@ -18,7 +18,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     BehaviorTreeRunner _BTRunner = null;
     Animator _animator = null;
 
-    // ¿©±â´Â BlackBoard·Î ¿Å°Üµµ ¤¡¤º
+    // ì´ê±´ BlackBoardë¡œ ì˜®ê²¨ë„ ã„±ã…Š 
     Transform _detectedPlayer = null;
 
     const string _ATTACK_ANIM_STATE_NAME = "Attack";
@@ -76,7 +76,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         return false;
     }
 
-    #region 1. °ø°İ °ü·Ã ³ëµå
+    #region 1. ê³µê²© ë…¸ë“œ
     INode.ENodeState CheckMeleeAttacking()
     {
         if(IsAnimationRunning(_ATTACK_ANIM_STATE_NAME))
@@ -110,7 +110,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
     #endregion
 
-    #region 2. Å½»ö & ÀÌµ¿ ³ëµå
+    #region 2. íƒìƒ‰ & ì´ë™ ë…¸ë“œ
     INode.ENodeState CheckDetectEnemy()
     {
         var overlapColliders = Physics.OverlapSphere(transform.position, _detectRange, LayerMask.GetMask("Player"));
@@ -140,7 +140,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
     #endregion
 
-    #region 3. º¹±Í ÀÌµ¿
+    #region 3. ë³µê·€ ë…¸ë“œ
     INode.ENodeState MoveToOriginPosition()
     {
         if(Vector3.SqrMagnitude(_originPos - transform.position) < (float.Epsilon * float.Epsilon))
