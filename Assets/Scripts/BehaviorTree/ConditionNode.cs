@@ -17,6 +17,9 @@ public class ConditionNode : INode
 
     public INode.ENodeState Evaluate()
     {
+        if (_node == null)
+            return INode.ENodeState.ENS_Failure;
+        
         bool conditionResult = _condition.Invoke();
         return conditionResult ? _node.Evaluate() : INode.ENodeState.ENS_Failure;
     }
