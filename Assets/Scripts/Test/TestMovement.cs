@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class TestMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    public Vector2 speed = new Vector2(5, 1);
 
     private Vector2 direction;
 
@@ -12,9 +12,9 @@ public class TestMovement : MonoBehaviour
     {
         direction = value.Get<Vector2>();
     }
-
+    
     private void FixedUpdate()
     {
-        transform.position += (Vector3)direction * (Time.deltaTime * speed);
+        transform.position += (Vector3)(direction * speed) * Time.deltaTime  ;
     }
 }
