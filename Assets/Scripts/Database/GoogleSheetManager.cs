@@ -26,7 +26,7 @@ public class GoogleSheetManager : MonoBehaviour
     // [Tooltip("Google sheet avail sheet tabs. seperate `/`. For example `Sheet1/Sheet2`")]
     // [SerializeField] string availSheets = "Sheet1/Sheet2";
     [Tooltip("For example `/GenerateGoogleSheet`")]
-    [SerializeField] string generateFolderPath = "/GenerateGoogleSheet";
+    [SerializeField] string generateFolderPath = "/Database/Generated";
     [Tooltip("You must approach through `GoogleSheetManager.SO<GoogleSheetSO>()`")]
     public ScriptableObject googleSheetSO;
 
