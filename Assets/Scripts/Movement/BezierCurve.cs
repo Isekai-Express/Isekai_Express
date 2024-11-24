@@ -1,23 +1,15 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
+
+// 차후 Bezier곡선 여러개 연결되는 상황 위해 배열로 만들어줘야 할 듯
 public class BezierCurve : MonoBehaviour
 {
-    // Test용 GameObject와 float
-    public GameObject GameObject;
-    [Range(0, 1)] public float Test;
-    
+    // p1 : 시작점 / p4 : 도착점
     public Vector3 _p1;
     public Vector3 _p2;
     public Vector3 _p3;
     public Vector3 _p4;
-
-    // Test용 Update문
-    private void Update()
-    {
-        GameObject.transform.position = Bezier(_p1, _p2, _p3, _p4, Test);
-    }
 
     public Vector3 Bezier(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, float value)
     {
@@ -34,6 +26,7 @@ public class BezierCurve : MonoBehaviour
     }
 }
 
+// BezierCurve 클래스에 대한 Custom Editor
 [CanEditMultipleObjects]
 [CustomEditor(typeof(BezierCurve))]
 public class Bezier_Editor : Editor
