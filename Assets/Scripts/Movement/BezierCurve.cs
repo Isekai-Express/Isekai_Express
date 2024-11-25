@@ -35,7 +35,7 @@ public class BezierCurve : MonoBehaviour
         testObject.transform.position = Bezier(_p1, _p2, _p3, _p4, testRange);
     }
 }
-
+#if UNITY_EDITOR
 // BezierCurve 클래스에 대한 Custom Editor
 [CanEditMultipleObjects]
 [CustomEditor(typeof(BezierCurve))]
@@ -65,3 +65,4 @@ public class Bezier_Editor : Editor
         }
     }
 }
+#endif
