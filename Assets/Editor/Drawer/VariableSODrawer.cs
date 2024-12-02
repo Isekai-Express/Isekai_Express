@@ -25,7 +25,7 @@ namespace Editor.Drawer
             if(property.objectReferenceValue != null)
             {
                 var valueRect = new Rect(position.x + editorWidth/4, position.y, editorWidth*3/4, position.height);
-                var so = GetVariable(property);
+                var so = property.objectReferenceValue as ScriptableObject;
                 if (so != null)
                 {
                     var serializedObject = new SerializedObject(so);
@@ -40,11 +40,6 @@ namespace Editor.Drawer
             EditorGUI.indentLevel = indent;
             
             EditorGUI.EndProperty();
-        }
-        
-        public ScriptableObject GetVariable(SerializedProperty property)
-        {
-            return property.objectReferenceValue as ScriptableObject;
         }
     }
 }
