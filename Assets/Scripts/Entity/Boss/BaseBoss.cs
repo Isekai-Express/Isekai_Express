@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Remoting.Messaging;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -6,12 +7,21 @@ namespace Entity.Boss
 {
     public class BaseBoss : Entity
     {
+        [Header("Boss Properties")]
         [SerializeField]
-        private IntVariableSO playerHP;
+        private float bossMaxHP;
         [SerializeField]
-        private IntVariableSO playerMaxHP;
+        private float bossHP;
+        
+        [Header("Inner References")]
         [SerializeField]
         private Animator animator;
+        [Header("Outer References")]
+        [SerializeField]
+        private FloatVariableSO playerHP;
+        [SerializeField]
+        private FloatVariableSO playerMaxHP;
+        
         
         private void OnEnable()
         {
@@ -23,10 +33,21 @@ namespace Entity.Boss
             playerHP.OnValueChanged -= OnPlayerHPChanged;
         }
         
-        private void OnPlayerHPChanged(int value)
+        private void OnPlayerHPChanged(float value)
         {
-            float playerHPratio = (float) value / playerMaxHP.Value;
+            float playerHPratio = value / playerMaxHP.Value;
             animator.SetFloat("PlayerHPratio", playerHPratio);
         }
+        
+        public void TakeDamage(float damage)
+        {
+            bossHP -= damage;
+            animator.SetFloat("BossHPratio", bossHP / bossMaxHP);
+            if (bossHP <= 0)
+            {
+                // 죽음 처리
+            }
+        }
+        
     }
 }
