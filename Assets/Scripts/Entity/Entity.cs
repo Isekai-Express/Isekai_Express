@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace Entity
 {
-    public class Entity
+    public class Entity : MonoBehaviour
     {
         
     }
