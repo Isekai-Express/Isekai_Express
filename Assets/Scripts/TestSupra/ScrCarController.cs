@@ -6,9 +6,9 @@ public class ScrCarController : MonoBehaviour
     public ScrWheel[] wheels;
 
     [Header("Car Specs")]
-    public float wheelBase; // in meters , ¾Õ¹ÙÄû Áß½É°ú µÞ¹ÙÄû Áß½É »çÀÌÀÇ °Å¸®
-    public float rearTrack; // in meters , µÞ¹ÙÄû Áß½É »çÀÌÀÇ °Å¸®
-    public float turnRadius; // in meters , Â÷·®ÀÌ Ä¿ºê¸¦ µ¹ ¶§, Â÷·®ÀÇ Áß½ÉÀÌ µµ´Â ¿øÀÇ ¹ÝÁö¸§
+    public float wheelBase; // in meters , ì•žë°”í€´ ì¤‘ì‹¬ê³¼ ë’·ë°”í€´ ì¤‘ì‹¬ ì‚¬ì´ì˜ ê±°ë¦¬
+    public float rearTrack; // in meters , ë’·ë°”í€´ ì¤‘ì‹¬ ì‚¬ì´ì˜ ê±°ë¦¬
+    public float turnRadius; // in meters , ì°¨ëŸ‰ì´ ì»¤ë¸Œë¥¼ ëŒ ë•Œ, ì°¨ëŸ‰ì˜ ì¤‘ì‹¬ì´ ë„ëŠ” ì›ì˜ ë°˜ì§€ë¦„
 
     [Header("Inputs")]
     public float steerInput;
@@ -22,16 +22,16 @@ public class ScrCarController : MonoBehaviour
         ApplySteering();
     }
 
-    void AckermannSteering() // ¾ÆÄ¿¸¸ ½ºÆ¼¾î¸µ °ø½Ä Àû¿ë
+    void AckermannSteering() // ì•„ì»¤ë§Œ ìŠ¤í‹°ì–´ë§ ê³µì‹ ì ìš©
     {
         steerInput = Input.GetAxis("Horizontal");
 
-        if (steerInput > 0) // ¿À¸¥ÂÊÀ¸·Î È¸Àü
+        if (steerInput > 0) // ì˜¤ë¥¸ìª½ìœ¼ë¡œ íšŒì „
         {
             ackermannAngleLeft = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (turnRadius + (rearTrack / 2))) * steerInput;
             ackermannAngleRight = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (turnRadius - (rearTrack / 2))) * steerInput;
         }
-        else if (steerInput < 0) // ¿ÞÂÊÀ¸·Î È¸Àü
+        else if (steerInput < 0) // ì™¼ìª½ìœ¼ë¡œ íšŒì „
         {
             ackermannAngleLeft = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (turnRadius - (rearTrack / 2))) * steerInput;
             ackermannAngleRight = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (turnRadius + (rearTrack / 2))) * steerInput;
@@ -43,7 +43,7 @@ public class ScrCarController : MonoBehaviour
         }
     }
 
-    void ApplySteering() // ¹ÙÄû¿¡ ¾ÆÄ¿¸¸ ½ºÆ¼¾î¸µ Àû¿ë
+    void ApplySteering() // ë°”í€´ì— ì•„ì»¤ë§Œ ìŠ¤í‹°ì–´ë§ ì ìš©
     {
         foreach (ScrWheel w in wheels)
         {

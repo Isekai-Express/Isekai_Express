@@ -4,8 +4,8 @@ using UnityEngine;
 public class ScrWheel : MonoBehaviour
 {
 
-    // Áú·® Áß½ÉÀ» (0,-0.5,0)¿¡¼­ (0,-0.2,0)À¸·Î ¿Ã·È´õ´Ï Â÷°¡ µé¸®´Â ¹®Á¦ ÇØ°á
-    // Angular Drag °ª Á¶Á¤À» ÅëÇØ ÀÚ¿¬½º·¯¿î Ä¿ºê ±¸Çö
+    // ì§ˆëŸ‰ ì¤‘ì‹¬ì„ (0,-0.5,0)ì—ì„œ (0,-0.2,0)ìœ¼ë¡œ ì˜¬ë ¸ë”ë‹ˆ ì°¨ê°€ ë“¤ë¦¬ëŠ” ë¬¸ì œ í•´ê²°
+    // Angular Drag ê°’ ì¡°ì •ì„ í†µí•´ ìì—°ìŠ¤ëŸ¬ìš´ ì»¤ë¸Œ êµ¬í˜„
 
     private Rigidbody rb;
 
@@ -15,27 +15,27 @@ public class ScrWheel : MonoBehaviour
     public bool wheelRearRight;
 
     [Header("Suspension")]
-    public float restLength; // ½ºÇÁ¸µÀÇ ±âº» ±æÀÌ
-    public float springTravel; // ½ºÇÁ¸µÀÌ º¯ÇÏ´Â ±æÀÌ
-    public float springStiffness; // ½ºÇÁ¸µ °­¼º
-    public float damperStiffness; // ´ïÆÛ °­¼º
+    public float restLength; // ìŠ¤í”„ë§ì˜ ê¸°ë³¸ ê¸¸ì´
+    public float springTravel; // ìŠ¤í”„ë§ì´ ë³€í•˜ëŠ” ê¸¸ì´
+    public float springStiffness; // ìŠ¤í”„ë§ ê°•ì„±
+    public float damperStiffness; // ëŒí¼ ê°•ì„±
 
-    private float springMinLength; // ½ºÇÁ¸µÀÇ ÃÖ¼Ò ±æÀÌ
-    private float springMaxLength; // ½ºÇÁ¸µÀÇ ÃÖ´ë ±æÀÌ
-    private float springLastLength; // ½ºÇÁ¸µÀÇ Àü ÇÁ·¹ÀÓÀÇ ±æÀÌ
-    private float springLength; // ÇöÀç ½ºÇÁ¸µÀÇ ±æÀÌ
-    private float springForce; // ½ºÇÁ¸µÀÇ Èû
-    private float springVelocity; // ½ºÇÁ¸µÀÇ ¼Óµµ
-    private float damperForce; // damper : ÀÚµ¿Â÷ÀÇ ¿ÏÃæ±â? ±× Èû
+    private float springMinLength; // ìŠ¤í”„ë§ì˜ ìµœì†Œ ê¸¸ì´
+    private float springMaxLength; // ìŠ¤í”„ë§ì˜ ìµœëŒ€ ê¸¸ì´
+    private float springLastLength; // ìŠ¤í”„ë§ì˜ ì „ í”„ë ˆì„ì˜ ê¸¸ì´
+    private float springLength; // í˜„ì¬ ìŠ¤í”„ë§ì˜ ê¸¸ì´
+    private float springForce; // ìŠ¤í”„ë§ì˜ í˜
+    private float springVelocity; // ìŠ¤í”„ë§ì˜ ì†ë„
+    private float damperForce; // damper : ìë™ì°¨ì˜ ì™„ì¶©ê¸°? ê·¸ í˜
 
     private Vector3 suspensionForce;
 
     [Header("Wheel")]
     public float wheelRadius;
-    private float wheelAngle; // ÇöÀçÀÇ ¹ÙÄûÀÇ °¢µµ
+    private float wheelAngle; // í˜„ì¬ì˜ ë°”í€´ì˜ ê°ë„
 
-    public float steerAngle; // È¸ÀüÇÒ ¹ÙÄûÀÇ °¢µµ
-    public float steerTime = 10f; // È¸ÀüÇÏ´Âµ¥ °É¸®´Â ½Ã°£
+    public float steerAngle; // íšŒì „í•  ë°”í€´ì˜ ê°ë„
+    public float steerTime = 10f; // íšŒì „í•˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
     private Vector3 wheelVelocityLS; // Local Space
     public float forwardForce = 1500f;
@@ -61,30 +61,30 @@ public class ScrWheel : MonoBehaviour
 
     void FixedUpdate()
     {     
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, springMaxLength + wheelRadius)) // Áö¸é°ú ´êÀ¸¸é
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, springMaxLength + wheelRadius)) // ì§€ë©´ê³¼ ë‹¿ìœ¼ë©´
         {
-            #region ¼­½ºÆæ¼Ç °è»ê
+            #region ì„œìŠ¤íœì…˜ ê³„ì‚°
 
             springLastLength = springLength;
             springLength = hit.distance - wheelRadius;
             springLength = Mathf.Clamp(springLength, springMinLength, springMaxLength);
-            springVelocity = (springLastLength - springLength) / Time.fixedDeltaTime; // ½ºÇÁ¸µÀÇ ¼Óµµ ¹°¸®ÇĞÀû °è»ê
+            springVelocity = (springLastLength - springLength) / Time.fixedDeltaTime; // ìŠ¤í”„ë§ì˜ ì†ë„ ë¬¼ë¦¬í•™ì  ê³„ì‚°
             springForce = springStiffness * (restLength - springLength);
             damperForce = damperStiffness * springVelocity;
 
-            suspensionForce = (springForce + damperForce) * transform.up; // raycastÀÇ ¹İ´ë¹æÇâ
+            suspensionForce = (springForce + damperForce) * transform.up; // raycastì˜ ë°˜ëŒ€ë°©í–¥
 
             #endregion
 
-            wheelVelocityLS = transform.InverseTransformDirection(rb.GetPointVelocity(hit.point)); // ¹ÙÄû¿¡ ÈûÀ» °¡ÇÏ´Â pointÀÇ local space ¼Óµµ °è»ê
+            wheelVelocityLS = transform.InverseTransformDirection(rb.GetPointVelocity(hit.point)); // ë°”í€´ì— í˜ì„ ê°€í•˜ëŠ” pointì˜ local space ì†ë„ ê³„ì‚°
             forceX = Input.GetAxis("Vertical") * forwardForce;
             forceY = wheelVelocityLS.x * sideForce;
 
-            if (forceX < 0) // ÈÄÁø
+            if (forceX < 0) // í›„ì§„
             {
                 rb.AddForceAtPosition((suspensionForce + (transform.forward * forceX) + (-transform.right * forceY)), hit.point);
             }
-            else // ÀÚµ¿À¸·Î ÀüÁø
+            else // ìë™ìœ¼ë¡œ ì „ì§„
             {
                 rb.AddForceAtPosition((suspensionForce + (transform.forward * forwardForce) + (-transform.right * forceY)), hit.point);
             }

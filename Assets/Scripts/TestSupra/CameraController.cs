@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
 
     void MoveCamera()
     {
-        Vector3 position = target.TransformPoint(positionOffset); // Å¸°ÙÀÇ ·ÎÄÃ ÁÂÇ¥¿¡¼­ Offset¸¸Å­ ¶³¾îÁø ¿ùµå ÁÂÇ¥¸¦ ¹İÈ¯ÇÑ´Ù
+        Vector3 position = target.TransformPoint(positionOffset); // íƒ€ê²Ÿì˜ ë¡œì»¬ ì¢Œí‘œì—ì„œ Offsetë§Œí¼ ë–¨ì–´ì§„ ì›”ë“œ ì¢Œí‘œë¥¼ ë°˜í™˜í•œë‹¤
         transform.position = Vector3.Lerp(transform.position, position, smoothMove * Time.deltaTime);
     }
 
